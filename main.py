@@ -26,7 +26,7 @@ def page_candidate(uid):
 
 @app.route('/skills/<skill>')
 def page_skills(skill):
-    '''Посик по навыку кандитатов'''
+    '''Поиск по навыку кандитатов'''
 
     candidates = get_by_skill(skill.lower())
     result = format_candidates(candidates)
