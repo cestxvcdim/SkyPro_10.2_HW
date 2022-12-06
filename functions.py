@@ -30,7 +30,7 @@ def get_by_pk(pk_name):
 
 
 def get_by_skill(skill_name):
-    '''Возвращает списко кандидатов по скиллам'''
+    '''Возвращает список кандидатов по навыкам'''
 
     candidates = get_all()
     result = []
