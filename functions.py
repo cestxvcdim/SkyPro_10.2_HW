@@ -1,10 +1,10 @@
 import requests
 
 
-def format_candidates(candidates):
+def format_candidates(candidates: list[dict[str, int | str]]) -> str:
     '''Упрощённый вид'''
 
-    result = '<pre>'
+    result: str = '<pre>'
     for candidate in candidates:
         result += f'{candidate["name"]}\n' \
                   f'{candidate["position"]}\n' \
@@ -13,27 +13,27 @@ def format_candidates(candidates):
     return result
 
 
-def get_all():
+def get_all() -> list[dict[str, int | str]]:
     '''Возвращает всех кандидатов'''
 
     return requests.get('https://www.jsonkeeper.com/b/G9LL').json()
 
 
-def get_by_pk(pk_name):
+def get_by_pk(pk_name: int) -> dict[str, int | str] | str:
     '''Возвращает кандидата по pk, если такого кандитата не было найдено, выведет неправильный pk'''
 
-    candidates = get_all()
+    candidates: list[dict[str, int | str]] = get_all()
     for candidate in candidates:
         if candidate["pk"] == pk_name:
             return candidate
     return 'Wrong pk'
 
 
-def get_by_skill(skill_name):
+def get_by_skill(skill_name: str) -> list[dict[str, int | str]]:
     '''Возвращает список кандидатов по навыкам'''
 
-    candidates = get_all()
-    result = []
+    candidates: list[dict[str, int | str]] = get_all()
+    result: list = []
     for candidate in candidates:
         if skill_name in candidate["skills"].lower().split(', '):
             result.append(candidate)

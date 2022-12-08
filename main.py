@@ -9,8 +9,8 @@ app = Flask(__name__)
 def page_main():
     '''Основная страница'''
 
-    candidates = get_all()
-    result = format_candidates(candidates)
+    candidates: list[dict[str, int | str]] = get_all()
+    result: str = format_candidates(candidates)
     return result
 
 
@@ -18,18 +18,21 @@ def page_main():
 def page_candidate(uid):
     '''Поиск по номеру кандидата'''
 
-    candidate = get_by_pk(uid)
-    result = f'<img src="{candidate["picture"]}">'
-    result += format_candidates([candidate])
-    return result
+    candidate: dict[str, int | str] | str = get_by_pk(uid)
+    if type(candidate) == str:
+        return candidate
+    else:
+        result: str = f'<img src="{candidate["picture"]}">'
+        result += format_candidates([candidate])
+        return result
 
 
 @app.route('/skills/<skill>')
 def page_skills(skill):
     '''Поиск по навыку кандитатов'''
 
-    candidates = get_by_skill(skill.lower())
-    result = format_candidates(candidates)
+    candidates: list[dict[str, int | str]] = get_by_skill(skill.lower())
+    result: str = format_candidates(candidates)
     return result
 
 
